@@ -10,7 +10,16 @@ let abuelos;
 
 
 // ==================================================
-// ZONAS DE CLICK
+// AUDIOS
+// ==================================================
+
+let sonidoLoros;      // iglesia
+let sonidoBandoneon;  // puente
+let sonidoTango;      // abuelos
+
+
+// ==================================================
+// ZONAS DE CLICK 
 // ==================================================
 
 // IGLESIA
@@ -67,7 +76,7 @@ let debug = true;
 
 
 // ==================================================
-// CARGAMOS LAS IMÁGENES
+// CARGAMOS LAS IMÁGENES Y AUDIOS
 // ==================================================
 
 function preload() {
@@ -77,6 +86,11 @@ function preload() {
   colectivo = loadImage("img/colectivo128.png");
   puente = loadImage("img/puente.png");
   abuelos = loadImage("img/abuelos.png");
+
+  // Audios 
+  sonidoLoros = loadSound("audios/loros.wav");
+  sonidoBandoneon = loadSound("audios/bandoneon.wav");
+  sonidoTango = loadSound("audios/tango.mp3");
 
 }
 
@@ -157,8 +171,8 @@ function draw() {
     );
 
     // Caja 2
-stroke(255, 0, 0);
-rect(iglesiaX2, iglesiaY2, iglesiaAncho2, iglesiaAlto2);
+    stroke(255, 0, 0);
+    rect(iglesiaX2, iglesiaY2, iglesiaAncho2, iglesiaAlto2);
 
     // --------------------------------------------------
     // COLECTIVO
@@ -221,8 +235,25 @@ function mouseDentroZona(x, y, ancho, alto) {
 
 
 // ==================================================
-// CLICK DEL MOUSE
+// FUNCIÓN AUXILIAR PARA PRENDER/APAGAR UN SONIDO
 // ==================================================
+
+function toggleSonido(sonido, activar, loop = true) {
+
+  if (!sonido) return;
+
+  if (activar) {
+    if (loop) {
+      sonido.loop();
+    } else {
+      sonido.play();
+    }
+  } else {
+    sonido.stop();
+  }
+
+}
+
 
 // ==================================================
 // CLICK DEL MOUSE
@@ -236,8 +267,7 @@ function mousePressed() {
   // --------------------------------------------------
 
   // La iglesia tiene DOS cajas.
-  // Si hago click en la caja 1 O en la caja 2,
-  // se activa/desactiva la iglesia.
+
 
   if (
     mouseDentroZona(
@@ -258,6 +288,7 @@ function mousePressed() {
   ) {
 
     iglesiaActiva = !iglesiaActiva;
+    toggleSonido(sonidoLoros, iglesiaActiva);
 
   }
 
@@ -290,6 +321,7 @@ function mousePressed() {
   )) {
 
     puenteActivo = !puenteActivo;
+    toggleSonido(sonidoBandoneon, puenteActivo);
 
   }
 
@@ -306,6 +338,7 @@ function mousePressed() {
   )) {
 
     abuelosActivos = !abuelosActivos;
+    toggleSonido(sonidoTango, abuelosActivos);
 
   }
 
