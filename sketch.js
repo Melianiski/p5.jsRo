@@ -7,6 +7,7 @@ let iglesia;
 let colectivo;
 let puente;
 let abuelos;
+let jovenes;
 
 
 // ==================================================
@@ -17,6 +18,7 @@ let sonidoLoros;      // iglesia
 let sonidoBandoneon;  // puente
 let sonidoTango;      // abuelos
 let sonidoAcordeon;   // colectivo
+let sonidoJovenes;    // jóvenes
 
 
 // ==================================================
@@ -55,6 +57,11 @@ let abuelosY = 530;
 let abuelosAncho = 290;
 let abuelosAlto = 420;
 
+// jovenes
+let jovenesX = 1100;
+let jovenesY = 590;
+let jovenesAncho = 190;
+let jovenesAlto = 320;
 
 // ==================================================
 // ESTADOS
@@ -64,6 +71,7 @@ let iglesiaActiva = false;
 let colectivoActivo = false;
 let puenteActivo = false;
 let abuelosActivos = false;
+let jovenesActivos = false;
 
 
 // ==================================================
@@ -87,12 +95,15 @@ function preload() {
   colectivo = loadImage("img/colectivo128.png");
   puente = loadImage("img/puente.png");
   abuelos = loadImage("img/abuelos.png");
+  jovenes = loadImage("img/jovenes.png");
+
 
   // Audios (requiere la librería p5.sound)
   sonidoLoros = loadSound("audios/loros.wav");
   sonidoBandoneon = loadSound("audios/bandoneon.wav");
   sonidoTango = loadSound("audios/tango.mp3");
   sonidoAcordeon = loadSound("audios/acordeon.mp3");
+  sonidoJovenes = loadSound("audios/punk.mp3");
 
 }
 
@@ -123,6 +134,7 @@ function draw() {
 
   image(collage, 0, 0);
 
+  
 
   // --------------------------------------------------
   // Imagenes ACTIVAS
@@ -135,17 +147,22 @@ function draw() {
 
   // COLECTIVO
   if (colectivoActivo) {
-    image(colectivo, -258, 215);
+    image(colectivo, -258, 216);
   }
 
   // PUENTE
   if (puenteActivo) {
-    image(puente, 158, -160);
+    image(puente, 158, -163);
   }
 
   // ABUELOS
   if (abuelosActivos) {
-    image(abuelos, 645, 485);
+    image(abuelos, 646, 484);
+  }
+
+  // JOVENES
+  if (jovenesActivos) {
+    image(jovenes, 1103, 575);
   }
 
 
@@ -216,6 +233,21 @@ function draw() {
       abuelosAncho,
       abuelosAlto
     );
+
+     // --------------------------------------------------
+    // Jovenes
+    // --------------------------------------------------
+
+     stroke(255, 255, 0);
+
+    rect(
+      jovenesX,
+      jovenesY,
+      jovenesAncho,
+      jovenesAlto
+      
+    );
+
 
   }
 
@@ -344,6 +376,18 @@ function mousePressed() {
     abuelosActivos = !abuelosActivos;
     toggleSonido(sonidoTango, abuelosActivos);
 
+  }
+
+
+  else if (mouseDentroZona(
+  jovenesX,
+  jovenesY,
+  jovenesAncho,
+  jovenesAlto
+  )) {
+
+  jovenesActivos = !jovenesActivos;
+  toggleSonido(sonidoJovenes, jovenesActivos);
   }
 
 }
