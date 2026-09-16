@@ -16,6 +16,7 @@ let abuelos;
 let sonidoLoros;      // iglesia
 let sonidoBandoneon;  // puente
 let sonidoTango;      // abuelos
+let sonidoAcordeon;   // colectivo
 
 
 // ==================================================
@@ -72,7 +73,7 @@ let abuelosActivos = false;
 // true = muestra los rectángulos
 // false = oculta los rectángulos
 
-let debug = true;
+let debug = false;
 
 
 // ==================================================
@@ -87,10 +88,11 @@ function preload() {
   puente = loadImage("img/puente.png");
   abuelos = loadImage("img/abuelos.png");
 
-  // Audios 
+  // Audios (requiere la librería p5.sound)
   sonidoLoros = loadSound("audios/loros.wav");
   sonidoBandoneon = loadSound("audios/bandoneon.wav");
   sonidoTango = loadSound("audios/tango.mp3");
+  sonidoAcordeon = loadSound("audios/acordeon.mp3");
 
 }
 
@@ -267,7 +269,8 @@ function mousePressed() {
   // --------------------------------------------------
 
   // La iglesia tiene DOS cajas.
-
+  // Si hago click en la caja 1 O en la caja 2,
+  // se activa/desactiva la iglesia.
 
   if (
     mouseDentroZona(
@@ -305,6 +308,7 @@ function mousePressed() {
   )) {
 
     colectivoActivo = !colectivoActivo;
+    toggleSonido(sonidoAcordeon, colectivoActivo);
 
   }
 
